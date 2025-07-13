@@ -1,1 +1,552 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cole's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Console', monospace;
+        }
+
+        :root {
+            --primary: #000000;
+            --background: #ffffff;
+            --border: #e5e5e5;
+            --accent: #10B981;  
+            --accent-hover: #059669;
+            --section-spacing: 5rem;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--primary);
+            background-color: var(--background);
+        }
+
+        nav {
+            background-color: var(--background);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+            padding: 0.5rem 2rem;
+            position: relative;
+        }
+
+        .nav-link:not(:last-child)::after {
+            content: '|';
+            position: absolute;
+            right: 0;
+            color: var(--border);
+        }
+
+        .nav-link[href^="https://"] {
+            color: var(--accent);
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        section {
+            padding: 6rem 2rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 6rem;
+        }
+
+        .profile-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image-container {
+            flex: 0 0 35%;
+        }
+
+        .profile-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .headline {
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Resume Section */
+        .resume-section {
+            margin-bottom: var(--section-spacing);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+            margin: 0.5rem auto 0;
+        }
+
+        .resume-item {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border);
+            position: relative;
+        }
+
+        .resume-item::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            position: absolute;
+            left: -6px;
+            top: 5px;
+        }
+
+        .resume-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-subtitle {
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .resume-date {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-description {
+            font-size: 0.9rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background-color: #f6f6f6;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+
+        .project-tag {
+            font-size: 0.7rem;
+            background-color: #f6f6f6;
+            padding: 0.2rem 0.5rem;
+        }
+
+        /* Contact Section */
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            font-family: 'Lucida Console', monospace;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Lucida Console', monospace;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-image-container {
+                flex: 0 0 auto;
+                width: 50%;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#resume" class="nav-link">Resume</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="https://medium.com/@detricktx" class="nav-link" target="_blank">Blog</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="container">
+            <div class="profile-content">
+                <div class="profile-image-container">
+                    <img src="/ProfilePic.png" alt="Profile Image" class="profile-image">
+                </div>
+                <div class="profile-details">
+                    <h1 class="headline">Cole Hunter Detrick</h1>
+                    <h2 class="subtitle">Technology enthusiast</h2>
+                    <p class="intro">
+                        A passionate professional with expertise in IT and Network Operations. Focused on delivering high-quality solutions and continuously improving skills in emerging technologies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            
+            <div class="resume-section">
+                <h3>Experience</h3>
+                
+                <div class="resume-item">
+                    <div class="resume-title">NOC Technician</div>
+                    <div class="resume-subtitle">DataBank</div>
+                    <div class="resume-date">Sept 2023 - Present</div>
+                    <div class="resume-description">
+                      <ul>
+            <li>Monitor network infrastructure using various network monitoring tools to ensure optimal performance and availability.</li>
+            <li>Respond to network problems reported by users or detected through monitoring tools and resolve or escalate as needed.</li>
+            <li>Respond to and manage incidents according to established procedures.</li>
+            <li>Communicate with internal teams and external service providers to coordinate incident resolution.</li>
+            <li>Maintain accurate and up-to-date documentation of network configurations, procedures, and troubleshooting steps.</li>
+            <li>Collaborate with the Development and Security team to increase workflow integration and reduce friction.</li>
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Education</h3>
+                
+                <div class="resume-item">
+                    <div class="resume-title">Bachelor's of Science: Computer Science</div>
+                    <div class="resume-subtitle">Western Governor's University</div>
+                </div>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Skills</h3>
+                
+                <div class="skills-container">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Computer Networking</span>
+                    <span class="skill-tag">Information Security</span>
+                    <span class="skill-tag">Automation</span>
+                    <span class="skill-tag">Operating Systems</span>
+                    <span class="skill-tag">Cloud Computing</span>
+                    <span class="skill-tag">Information Technology</span>
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Communication</span>
+                </div>
+            </div>
+            
+            <div class="resume-section">
+                <h3>Certifications</h3>
+                
+                <div class="resume-item">
+                    <div class="resume-title">Security+</div>
+                    <div class="resume-subtitle">CompTIA</div>
+                    <div class="resume-subtitle">Verification: B1DD30RR1BB1Q79R</div>
+                    <div class="resume-date">November 2023</div>
+                </div>
+                
+                <div class="resume-item">
+                    <div class="resume-title">Network+</div>
+                    <div class="resume-subtitle">CompTIA</div>
+                    <div class="resume-subtitle">Verification: T2RSEXQ6NJR1Q6CN</div>
+                    <div class="resume-date">February 2024</div>
+                </div>
+                <div class="resume-item">
+                    <div class="resume-title">ITIL v4: Foundations</div>
+                    <div class="resume-subtitle">ITIL</div>
+                    <div class="resume-subtitle">Verification: GR671741098CD</div>
+                    <div class="resume-date">February 2025</div>
+                </div>
+                <div class="resume-item">
+                    <div class="resume-title">LPI: Linux Essentials</div>
+                    <div class="resume-subtitle">Linux Professional Institute</div>
+                    <div class="resume-subtitle">Verification: 4a5mv2hg96</div>
+                    <div class="resume-date">November 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">Machine Learning Powered SMS Spam Detection App</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Windows</span>
+                            <span class="project-tag">Linux</span>
+                        </div>
+                        <p class="project-description">This project leverages machine learning to accurately and efficiently detect spam and phishing attempts. The project uses Naive Bayes + TF-IDF vectorization to accurately classify messages as spam or legitimate with a >95% accuracy. I created this project in Python on Ubuntu Linux 22.04, the project is also compatible with both Windows and MacOS and there are guides on how to run my program or train the model on your own data using the Streamlit dashboard I have created.</p>
+                        <div style="text-align: center;">
+                            <a href="https://github.com/orbwalk14/C964" class="cta-button">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">Homelab</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">VMware</span>
+                            <span class="project-tag">Linux</span>
+                            <span class="project-tag">Elastic</span>
+                        </div>
+                        <p class="project-description">I consistently maintain a comprehensive technical blog documenting hands-on projects, including a sophisticated home lab environment where I implement, test, and integrate emerging technologies. Designed and deployed custom monitoring solutions using industry tools to optimize system performance. Continuously expand technical capabilities by experimenting with new platforms and creating innovative integration solutions between disparate systems.</p>
+                        <div style="text-align: center;">
+                            <a href="https://medium.com/@detricktx" class="cta-button">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">HackTheBox</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Cybersecurity</span>
+                            <span class="project-tag">IT</span>
+                            <span class="project-tag">Splunk</span>
+                        </div>
+                        <p class="project-description">Maintained a 30+ week streak on hack the box primarily focusing on blue team security labs and general IT labs. Completed defensive security labs that allowed me to get hands-on experience with Splunk, Elastic, Zeek, Suricata and more. Completed General IT labs and training with Windows, Powershell, Linux, MacOS, BASH, Python and more.</p>
+                        <div style="text-align: center;">
+                            <a href="https://www.dropbox.com/scl/fi/kieaixuqhnokl73cmdesy/HTB-Academy-Student-Transcript.pdf?rlkey=z0nrgf7mg29cqcplw2ov7jdou&st=vgqzxm7c&dl=0" class="cta-button">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <p>Cell: (+1)214-797-0616<p/>
+            <p>E-mail: ColeDetrick@gmail.com<p/>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/cole-d-411196241/" class="social-link">LinkedIn</a>
+            <a href="https://github.com/orbwalk14" class="social-link">GitHub</a>
+            <a href="https://medium.com/@detricktx" class="social-link">Blog</a>
+        </div>
+        <p>&copy; 2025 Cole Detrick. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        });
+    </script>
+</body>
+</html>
